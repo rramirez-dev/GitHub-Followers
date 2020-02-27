@@ -39,13 +39,12 @@ class FollowersVC: UICollectionViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         configureView()
-        navigationItem.hidesSearchBarWhenScrolling = false
+        navigationItem.hidesSearchBarWhenScrolling = true
 
     }
 
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        navigationItem.hidesSearchBarWhenScrolling = true
     }
 
     private func configureView() {
@@ -58,7 +57,6 @@ class FollowersVC: UICollectionViewController {
 
     private func configureSearchController() {
         searchController =  UISearchController(searchResultsController: nil)
-        searchController.becomeFirstResponder()
         searchController.searchResultsUpdater = self
         searchController.searchBar.placeholder = "Search by username"
         searchController.searchBar.showsCancelButton = true
