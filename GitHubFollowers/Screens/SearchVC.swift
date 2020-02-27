@@ -135,7 +135,6 @@ class SearchVC: UIViewController {
 
     @objc func dismissKeyboard() {
         if searchTextField.isFirstResponder {
-            print("Tapped")
             view.endEditing(true)
         }
     }
