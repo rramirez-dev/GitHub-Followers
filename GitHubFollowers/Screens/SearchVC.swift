@@ -119,14 +119,6 @@ class SearchVC: UIViewController {
         let flowLayout = UICollectionViewLayout()
         let followersVC = FollowersVC(collectionViewLayout: flowLayout)
 
-//        if let username = searchTextField.text {
-//
-//            followersVC.username = username.trimmingCharacters(in: CharacterSet.whitespacesAndNewlines)
-//            searchTextField.text = ""
-//        } else {
-//            followersVC.username = ""
-//        }
-
         if searchTextField.text == "" {
             let alertVC = AlertVC()
             alertVC.modalPresentationStyle = .overFullScreen
