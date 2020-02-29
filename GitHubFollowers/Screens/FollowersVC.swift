@@ -40,7 +40,6 @@ class FollowersVC: UICollectionViewController {
         super.viewWillAppear(animated)
         configureView()
         navigationItem.hidesSearchBarWhenScrolling = true
-
     }
 
     override func viewDidAppear(_ animated: Bool) {
@@ -238,25 +237,34 @@ class FollowersVC: UICollectionViewController {
         let favoritesKey = "favorites"
         var favorites: [[String: String]]? = defaults.object(forKey: favoritesKey) as? [[String: String]]
         var userInfo = [String: String]()
+        var message = ""
+        var alertTitle = ""
 
         userInfo.updateValue(String(self.searchedUser.id!), forKey: "id")
         userInfo.updateValue(self.searchedUser.login!, forKey: "login")
         userInfo.updateValue(self.searchedUser.name!, forKey: "name")
         userInfo.updateValue(self.searchedUser.avatar_url!, forKey: "avatar_url")
 
-        if   favorites != nil {
-            favorites!.append(userInfo)
-            defaults.set(favorites, forKey: favoritesKey)
-        } else {
+        if favorites == nil {
             favorites = [[String: String]]()
-            favorites!.append(userInfo)
-            defaults.set(favorites, forKey: favoritesKey)
+        }
+
+        for user in favorites! {
+            if user.values.contains(userInfo["id"]!) {
+                alertTitle = "Warning!!"
+                message = "\(username) has already been added to favorites"
+            } else {
+                favorites!.append(userInfo)
+                defaults.set(favorites, forKey: favoritesKey)
+                alertTitle = "Success!"
+                message = "\(username) has been added to you favorites"
+            }
         }
 
         alertVC.modalPresentationStyle = .overFullScreen
         alertVC.modalTransitionStyle = .crossDissolve
-        alertVC.alertTitle = "Success!"
-        alertVC.alertMessage = "\(username) has been added to you favorites"
+        alertVC.alertTitle = alertTitle
+        alertVC.alertMessage = message
         alertVC.view.layoutIfNeeded()
         present(alertVC, animated: true, completion: nil)
     }
