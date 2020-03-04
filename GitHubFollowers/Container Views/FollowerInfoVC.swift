@@ -24,9 +24,7 @@ class FollowerInfoVC: UIViewController {
 
         override func viewDidLoad() {
             super.viewDidLoad()
-            configureFollowerInfoView()
-            configureFollowerBioVStack()
-            configureFollowerDetailsHeaderHStack()
+            configureView()
             configureAvatarImageView()
             configureFollowerInfoVStack()
             configureLoginLabel()
@@ -35,39 +33,8 @@ class FollowerInfoVC: UIViewController {
             configureBioTextView()
         }
 
-    private func configureFollowerInfoView() {
+    private func configureView() {
         view.backgroundColor = .systemBackground
-    }
-
-    // MARK: Configure Follower Bio VStack
-    private func configureFollowerBioVStack() {
-        followerBioVStack = UIStackView()
-        followerBioVStack.alignment = .fill
-        followerBioVStack.distribution = .fill
-        followerBioVStack.spacing = 20
-        followerBioVStack.axis = .vertical
-        view.addSubview(followerBioVStack)
-        setFollowerBioVStackContraints()
-    }
-
-    private func setFollowerBioVStackContraints() {
-        followerBioVStack.translatesAutoresizingMaskIntoConstraints = false
-
-        NSLayoutConstraint.activate([
-            followerBioVStack.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 0),
-            followerBioVStack.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 0),
-            followerBioVStack.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: 0)
-        ])
-    }
-
-    // MARK: Configure Follower Details HeaderHStack
-    private func configureFollowerDetailsHeaderHStack() {
-        followerDetailsHeaderHStack = UIStackView()
-        followerDetailsHeaderHStack.alignment = .center
-        followerDetailsHeaderHStack.distribution = .fill
-        followerDetailsHeaderHStack.axis = .horizontal
-        followerDetailsHeaderHStack.spacing = 10
-        followerBioVStack.addArrangedSubview(followerDetailsHeaderHStack)
     }
 
     // MARK: Configure Followers Info VStack
@@ -75,9 +42,18 @@ class FollowerInfoVC: UIViewController {
         followerInfoVStack = UIStackView()
         followerInfoVStack.alignment = .fill
         followerInfoVStack.distribution = .fill
-        followerBioVStack.spacing = 5
         followerInfoVStack.axis = .vertical
-        followerDetailsHeaderHStack.addArrangedSubview(followerInfoVStack)
+        view.addSubview(followerInfoVStack)
+        setFollowerInfoVStackContraints()
+    }
+
+    private func setFollowerInfoVStackContraints() {
+        followerInfoVStack.translatesAutoresizingMaskIntoConstraints = false
+
+        NSLayoutConstraint.activate([
+            followerInfoVStack.topAnchor.constraint(equalTo: view.topAnchor, constant: 0),
+            followerInfoVStack.leadingAnchor.constraint(equalTo: avatarImageView.trailingAnchor, constant: 10)
+        ])
     }
 
     // MARK: Configure Login Label
@@ -109,7 +85,7 @@ class FollowerInfoVC: UIViewController {
         let smallConfiguration = UIImage.SymbolConfiguration(scale: .small)
         let lightConfiguration = UIImage.SymbolConfiguration(weight: .ultraLight)
         smallConfiguration.applying(lightConfiguration)
-        let smallSymbolImage = UIImage(systemName: mapPinEllipseSFSymbol, withConfiguration: smallConfiguration)?.withTintColor(.label, renderingMode: .alwaysOriginal)
+        let smallSymbolImage = UIImage(systemName: mapPinEllipseSFSymbol, withConfiguration: smallConfiguration)?.withTintColor(.systemGray, renderingMode: .alwaysOriginal)
         mapPinAttachmentImage.image = smallSymbolImage
         // wrap the attachment in its own attributed string so we can append it
         let mappinWihLocation = NSAttributedString(attachment: mapPinAttachmentImage)
@@ -137,7 +113,8 @@ class FollowerInfoVC: UIViewController {
         bioTextView.font = UIFont(name: "ArialMT", size: 16)
         bioTextView.textColor = .systemGray
         bioTextView.isEditable = false
-        followerBioVStack.addArrangedSubview(bioTextView)
+        //followerBioVStack.addArrangedSubview(bioTextView)
+        view.addSubview(bioTextView)
         setBioTextViewContraints()
     }
 
@@ -145,6 +122,9 @@ class FollowerInfoVC: UIViewController {
         bioTextView.translatesAutoresizingMaskIntoConstraints = false
 
         NSLayoutConstraint.activate([
+            bioTextView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 10),
+            bioTextView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -10),
+            bioTextView.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: 0),
             bioTextView.heightAnchor.constraint(equalToConstant: 100)
         ])
     }
@@ -164,11 +144,11 @@ class FollowerInfoVC: UIViewController {
                 }
             }
         }
-        avatarImageView.backgroundColor = .red
+
         avatarImageView.layer.cornerRadius = 5
         avatarImageView.clipsToBounds = true
         avatarImageView.layer.masksToBounds = true
-        followerDetailsHeaderHStack.addArrangedSubview(avatarImageView)
+        view.addSubview(avatarImageView)
         setAvatarImageViewContraints()
     }
 
@@ -176,8 +156,10 @@ class FollowerInfoVC: UIViewController {
         avatarImageView.translatesAutoresizingMaskIntoConstraints = false
 
         NSLayoutConstraint.activate([
-            avatarImageView.heightAnchor.constraint(equalToConstant: 70),
-            avatarImageView.widthAnchor.constraint(equalToConstant: 70)
+            avatarImageView.topAnchor.constraint(equalTo: view.topAnchor, constant: 0),
+            avatarImageView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 10),
+            avatarImageView.heightAnchor.constraint(equalToConstant: 90),
+            avatarImageView.widthAnchor.constraint(equalToConstant: 90)
         ])
     }
 }
