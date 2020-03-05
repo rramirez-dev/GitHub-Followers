@@ -61,6 +61,7 @@ class FollowersVC: UICollectionViewController {
         searchController.searchBar.showsCancelButton = true
         searchController.searchBar.searchTextField.clearButtonMode = .always
         searchController.obscuresBackgroundDuringPresentation = false
+        definesPresentationContext = true
         navigationItem.searchController = searchController
 
     }
@@ -249,16 +250,14 @@ class FollowersVC: UICollectionViewController {
             favorites = [[String: String]]()
         }
 
-        for user in favorites! {
-            if user.values.contains(userInfo["id"]!) {
-                alertTitle = "Warning!!"
-                message = "\(username) has already been added to favorites"
-            } else {
-                favorites!.append(userInfo)
-                defaults.set(favorites, forKey: favoritesKey)
-                alertTitle = "Success!"
-                message = "\(username) has been added to you favorites"
-            }
+        if userAlreadyAddedToFavorites(favorites: favorites!, userInfo: userInfo) {
+            alertTitle = "Warning!!"
+            message = "\(username) has already been added to favorites"
+        } else {
+             favorites!.append(userInfo)
+             defaults.set(favorites, forKey: favoritesKey)
+             alertTitle = "Success!"
+             message = "\(username) has been added to you favorites"
         }
 
         alertVC.modalPresentationStyle = .overFullScreen
@@ -267,6 +266,15 @@ class FollowersVC: UICollectionViewController {
         alertVC.alertMessage = message
         alertVC.view.layoutIfNeeded()
         present(alertVC, animated: true, completion: nil)
+    }
+
+    private func userAlreadyAddedToFavorites(favorites: [[String: String]], userInfo: [String: String]) -> Bool {
+        for user in favorites {
+            if user.values.contains(userInfo["id"]!) {
+                return true
+            }
+        }
+        return false
     }
 }
 
