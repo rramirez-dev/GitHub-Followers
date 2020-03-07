@@ -51,8 +51,9 @@ class FollowerInfoVC: UIViewController {
         followerInfoVStack.translatesAutoresizingMaskIntoConstraints = false
 
         NSLayoutConstraint.activate([
-            followerInfoVStack.topAnchor.constraint(equalTo: view.topAnchor, constant: 0),
-            followerInfoVStack.leadingAnchor.constraint(equalTo: avatarImageView.trailingAnchor, constant: 10)
+            followerInfoVStack.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 0),
+            followerInfoVStack.leadingAnchor.constraint(equalTo: avatarImageView.trailingAnchor, constant: 10),
+            followerInfoVStack.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -10)
         ])
     }
 
@@ -61,6 +62,7 @@ class FollowerInfoVC: UIViewController {
         loginLabel = UILabel()
         loginLabel.textColor = .label
         loginLabel.text = user.login ?? ""
+        loginLabel.adjustsFontSizeToFitWidth = true
         loginLabel.font = UIFont.preferredFont(forTextStyle: .headline).withSize(36)
         followerInfoVStack.addArrangedSubview(loginLabel)
     }
@@ -113,7 +115,6 @@ class FollowerInfoVC: UIViewController {
         bioTextView.font = UIFont(name: "ArialMT", size: 16)
         bioTextView.textColor = .systemGray
         bioTextView.isEditable = false
-        //followerBioVStack.addArrangedSubview(bioTextView)
         view.addSubview(bioTextView)
         setBioTextViewContraints()
     }
@@ -140,14 +141,17 @@ class FollowerInfoVC: UIViewController {
                 print(error)
             case .success(let avatarImage):
                 DispatchQueue.main.async {
-                    self?.avatarImageView.image = avatarImage
+                    self?.avatarImageView.image = avatarImage.resizeUI(size: CGSize(width: 90, height: 90))
                 }
             }
         }
 
+        avatarImageView.contentMode = .scaleAspectFit
+        avatarImageView.backgroundColor = .red
         avatarImageView.layer.cornerRadius = 5
         avatarImageView.clipsToBounds = true
         avatarImageView.layer.masksToBounds = true
+        avatarImageView.setContentHuggingPriority(.init(rawValue: 252), for: .horizontal)
         view.addSubview(avatarImageView)
         setAvatarImageViewContraints()
     }
@@ -157,9 +161,18 @@ class FollowerInfoVC: UIViewController {
 
         NSLayoutConstraint.activate([
             avatarImageView.topAnchor.constraint(equalTo: view.topAnchor, constant: 0),
-            avatarImageView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 10),
-            avatarImageView.heightAnchor.constraint(equalToConstant: 90),
-            avatarImageView.widthAnchor.constraint(equalToConstant: 90)
+            avatarImageView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 10)
         ])
+    }
+}
+
+extension UIImage {
+    func resizeUI(size: CGSize) -> UIImage? {
+        UIGraphicsBeginImageContextWithOptions(size, true, self.scale)
+        self.draw(in: CGRect(origin: CGPoint.zero, size: size))
+
+        let resizedImage = UIGraphicsGetImageFromCurrentImageContext()
+        UIGraphicsEndImageContext()
+        return resizedImage
     }
 }
