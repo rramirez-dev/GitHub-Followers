@@ -28,16 +28,16 @@ class FavoritesVC: UITableViewController {
     }
 
     private func configureDataSource() {
-        datasource = UITableViewDiffableDataSource<Section, User>(tableView: tableView, cellProvider: { (tableView, indexPath, user) -> FavoritesCell? in
-            // swiftlint:disable force_cast
-            let cell = tableView.dequeueReusableCell(withIdentifier: FavoritesCell.cellIdentifier, for: indexPath) as! FavoritesCell
+
+        datasource = FavoritesDataSource.init(tableView: self.tableView) { (_, indexPath, user) -> UITableViewCell? in
+
+            guard let cell  = self.tableView.dequeueReusableCell(withIdentifier: FavoritesCell.cellIdentifier, for: indexPath) as? FavoritesCell else {
+                return UITableViewCell()
+            }
             cell.selectionStyle = .none
             cell.usernameLabel.text = user.login
 
-            guard let avatarURL = URL(string: user.avatar_url!) else {
-
-                return cell
-            }
+            guard let avatarURL = URL(string: user.avatar_url!) else { return cell }
 
             GitHubAPIService.shared.fetchAvatar(for: avatarURL) { (result) in
                 switch result {
@@ -50,7 +50,30 @@ class FavoritesVC: UITableViewController {
                 }
             }
             return cell
-        })
+        }
+    }
+
+    override func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
+        let deleteAction = UIContextualAction(style: .destructive, title: "Delete") { (_, _, completion) in
+            completion(true)
+            var favoriteUsers = self.defaults.object(forKey: self.favoritesKey) as? [[String: String]]
+
+            var snapshot = self.datasource.snapshot()
+
+            guard let user =  self.datasource.itemIdentifier(for: indexPath) else { return }
+
+            for (index, userInfo) in favoriteUsers!.enumerated() {
+                if userInfo["id"] == String(user.id!) {
+                    favoriteUsers?.remove(at: index)
+                    self.defaults.set(favoriteUsers, forKey: self.favoritesKey)
+                }
+            }
+
+            snapshot.deleteItems([user])
+            self.datasource.apply(snapshot)
+        }
+
+        return .init(actions: [deleteAction])
     }
 
     private func createSnapshot(from favorites: [User]) {
@@ -86,17 +109,5 @@ extension FavoritesVC {
         let followersVC = FollowersVC(collectionViewLayout: flowLayout)
         followersVC.username = username
         navigationController?.pushViewController(followersVC, animated: true)
-    }
-
-    override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
-        if editingStyle == .delete {
-            favorities?.remove(at: indexPath.row)
-            tableView.deleteRows(at: [indexPath], with: .automatic)
-            createSnapshot(from: favorities!)
-        }
-    }
-
-    override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
-        return true
     }
 }

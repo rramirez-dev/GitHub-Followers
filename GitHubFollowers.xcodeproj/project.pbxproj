@@ -27,6 +27,7 @@
 		7FE1659D24009D5F00ADD52A /* FavoritesCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7FE1659C24009D5F00ADD52A /* FavoritesCell.swift */; };
 		7FF6A97823BDAE2C00172027 /* FollowerDetailsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7FF6A97723BDAE2C00172027 /* FollowerDetailsVC.swift */; };
 		7FF796E723BE6DEA00F9C61E /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7FF796E623BE6DEA00F9C61E /* User.swift */; };
+		7FF79F7824157F0D00A4BE9B /* FavoritesDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7FF79F7724157F0D00A4BE9B /* FavoritesDataSource.swift */; };
 		7FF9D06123C1A1730082FBCD /* FollowerInfoVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7FF9D06023C1A1730082FBCD /* FollowerInfoVC.swift */; };
 		7FFBEF7223C6DB7E00727847 /* RepoStatsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7FFBEF7123C6DB7E00727847 /* RepoStatsVC.swift */; };
 		7FFBEF7423C6DBC300727847 /* FollowerStatsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7FFBEF7323C6DBC300727847 /* FollowerStatsVC.swift */; };
@@ -77,6 +78,7 @@
 		7FE1659C24009D5F00ADD52A /* FavoritesCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoritesCell.swift; sourceTree = "<group>"; };
 		7FF6A97723BDAE2C00172027 /* FollowerDetailsVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FollowerDetailsVC.swift; sourceTree = "<group>"; };
 		7FF796E623BE6DEA00F9C61E /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
+		7FF79F7724157F0D00A4BE9B /* FavoritesDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoritesDataSource.swift; sourceTree = "<group>"; };
 		7FF9D06023C1A1730082FBCD /* FollowerInfoVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FollowerInfoVC.swift; sourceTree = "<group>"; };
 		7FFBEF7123C6DB7E00727847 /* RepoStatsVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RepoStatsVC.swift; sourceTree = "<group>"; };
 		7FFBEF7323C6DBC300727847 /* FollowerStatsVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FollowerStatsVC.swift; sourceTree = "<group>"; };
@@ -131,6 +133,7 @@
 		7F4109BE23B540400046664D /* GitHubFollowers */ = {
 			isa = PBXGroup;
 			children = (
+				7FF79F7624157ED100A4BE9B /* DataSources */,
 				7F4109CD23B540410046664D /* Info.plist */,
 				7F4109CA23B540410046664D /* LaunchScreen.storyboard */,
 				7F892A9023FCA78B0015EE16 /* Views */,
@@ -238,6 +241,14 @@
 				7F0DBABC23F4BF4500BA8816 /* GitHubAPIService.swift */,
 			);
 			path = Services;
+			sourceTree = "<group>";
+		};
+		7FF79F7624157ED100A4BE9B /* DataSources */ = {
+			isa = PBXGroup;
+			children = (
+				7FF79F7724157F0D00A4BE9B /* FavoritesDataSource.swift */,
+			);
+			path = DataSources;
 			sourceTree = "<group>";
 		};
 		7FFF650223F26DB300900693 /* Alert Views */ = {
@@ -400,6 +411,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				7FF9D06123C1A1730082FBCD /* FollowerInfoVC.swift in Sources */,
+				7FF79F7824157F0D00A4BE9B /* FavoritesDataSource.swift in Sources */,
 				7FFBEF7223C6DB7E00727847 /* RepoStatsVC.swift in Sources */,
 				7FFF650423F26E1500900693 /* AlertVC.swift in Sources */,
 				7FFBEF7423C6DBC300727847 /* FollowerStatsVC.swift in Sources */,
