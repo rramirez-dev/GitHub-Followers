@@ -39,7 +39,7 @@ class FollowersVC: UICollectionViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         configureView()
-        navigationItem.hidesSearchBarWhenScrolling = true
+        navigationItem.hidesSearchBarWhenScrolling = false
     }
 
     override func viewDidAppear(_ animated: Bool) {
@@ -52,6 +52,7 @@ class FollowersVC: UICollectionViewController {
 
     private func configureNavigationBar() {
         navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(addToFavorites))
+        definesPresentationContext = true
     }
 
     private func configureSearchController() {
@@ -61,7 +62,6 @@ class FollowersVC: UICollectionViewController {
         searchController.searchBar.showsCancelButton = true
         searchController.searchBar.searchTextField.clearButtonMode = .always
         searchController.obscuresBackgroundDuringPresentation = false
-        definesPresentationContext = true
         navigationItem.searchController = searchController
 
     }
@@ -171,6 +171,7 @@ class FollowersVC: UICollectionViewController {
 
                 if followers.count == 0 {
                     DispatchQueue.main.async {
+                        self?.title = ""
                         self?.isMoreDataAvailable = false
                         self?.loadingIndicator.isHidden = true
                     }
@@ -178,7 +179,6 @@ class FollowersVC: UICollectionViewController {
                     if self!.page == 1 {
                         DispatchQueue.main.async {
                             let noFollowersView = NoFollowersView(username: self!.username)
-                            self?.loadingIndicator.isHidden = true
                             self?.createSnapshot(from: followers)
                             self?.navigationItem.searchController = nil
                             self?.collectionView.backgroundView = noFollowersView
@@ -200,26 +200,17 @@ class FollowersVC: UICollectionViewController {
                 switch error {
                 case .forbidden:
                     DispatchQueue.main.async {
-                        let errorMessageView = ErrorMessageView(errorMessage: "403 Forbidden")
-                        self?.loadingIndicator.isHidden = true
-                        self?.navigationItem.searchController = nil
-                        self?.navigationItem.rightBarButtonItem = nil
+                        let errorMessageView = MessageView(errorMessage: "403 Forbidden")
                         self?.collectionView.backgroundView = errorMessageView
                     }
                 case .notFound:
                     DispatchQueue.main.async {
-                        let errorMessageView = ErrorMessageView(errorMessage: "404 Not Found")
-                        self?.loadingIndicator.isHidden = true
-                        self?.navigationItem.searchController = nil
-                        self?.navigationItem.rightBarButtonItem = nil
+                        let errorMessageView = MessageView(errorMessage: "404 Not Found")
                         self?.collectionView.backgroundView = errorMessageView
                     }
                 case .invalidURL:
                     DispatchQueue.main.async {
-                        let errorMessageView = ErrorMessageView(errorMessage: "Invalid URL")
-                        self?.loadingIndicator.isHidden = true
-                        self?.navigationItem.searchController = nil
-                        self?.navigationItem.rightBarButtonItem = nil
+                        let errorMessageView = MessageView(errorMessage: "Invalid URL")
                         self?.collectionView.backgroundView = errorMessageView
                     }
                 default:
@@ -227,7 +218,11 @@ class FollowersVC: UICollectionViewController {
                         self?.createSnapshot(from: [])
                     }
                 }
-                print("Fetch Followers Error: \(error.localizedDescription)")
+                DispatchQueue.main.async {
+                    self?.loadingIndicator.isHidden = true
+                    self?.navigationItem.searchController = nil
+                    self?.navigationItem.rightBarButtonItem = nil
+                }
             }
         }
     }
