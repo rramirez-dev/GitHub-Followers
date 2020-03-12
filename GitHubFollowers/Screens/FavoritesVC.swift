@@ -13,6 +13,7 @@ class FavoritesVC: UITableViewController {
     private var datasource: UITableViewDiffableDataSource<Section, User>!
     private let favoritesKey = "favorites"
     private var defaults = UserDefaults.standard
+    private let errorMessageView = MessageView(errorMessage: "No favorites have been added")
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -71,8 +72,12 @@ class FavoritesVC: UITableViewController {
 
             snapshot.deleteItems([user])
             self.datasource.apply(snapshot)
-        }
 
+            if snapshot.numberOfItems(inSection: .main) == 0 {
+                tableView.separatorStyle = .none
+                tableView.backgroundView = self.errorMessageView
+            }
+        }
         return .init(actions: [deleteAction])
     }
 
@@ -89,16 +94,24 @@ class FavoritesVC: UITableViewController {
         favorities = [User]()
 
         if favoriteUsers != nil {
-            for userInfo in favoriteUsers! {
-                var user = User()
-                user.id = Int(userInfo["id"]!)
-                user.login = userInfo["login"]!
-                user.name = userInfo["name"]!
-                user.avatar_url = userInfo["avatar_url"]!
-                favorities?.append(user)
+
+            if favoriteUsers?.count == 0 {
+                tableView.separatorStyle = .none
+                tableView.backgroundView = self.errorMessageView
+            } else {
+                tableView.backgroundView = nil
+                tableView.separatorStyle = .singleLine
+                for userInfo in favoriteUsers! {
+                    var user = User()
+                    user.id = Int(userInfo["id"]!)
+                    user.login = userInfo["login"]!
+                    user.name = userInfo["name"]!
+                    user.avatar_url = userInfo["avatar_url"]!
+                    favorities?.append(user)
+                }
+                createSnapshot(from: favorities!)
             }
         }
-        createSnapshot(from: favorities!)
     }
 }
 
