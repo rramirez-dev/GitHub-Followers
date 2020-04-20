@@ -12,9 +12,9 @@ GitHubFollowers allows you to find the followers of a specific Github user. You 
 
 * **Search** for followers of followers
 
-![GF HomeScreen](/images/GF_HomeScreen.png "Search")|
-![GF HomeScreen](/images/GF_Followers.png "Followers")|
-![GF HomeScreen](/images/GF_Favorites.png "Favorites")|
+![GF HomeScreen](/images/GF_HomeScreen.png "Search")
+![GF HomeScreen](/images/GF_Followers.png "Followers")
+![GF HomeScreen](/images/GF_Favorites.png "Favorites")
 ![GF HomeScreen](/images/GF_Profile.png "Profile")
 ![GF HomeScreen](/images/GF_FollowerDetails1.png "Details")
 
