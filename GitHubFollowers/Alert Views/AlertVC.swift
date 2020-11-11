@@ -18,6 +18,7 @@ class AlertVC: UIViewController {
 
     var alertMessage = String()
     var alertTitle = String()
+    var alertButtonColor = UIColor()
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -91,6 +92,7 @@ class AlertVC: UIViewController {
         alertButton = UIButton()
         alertButton.backgroundColor = .systemRed
         alertButton.layer.cornerRadius = 10
+        alertButton.backgroundColor = alertButtonColor
         alertButton.setTitle("OK", for: .normal)
         alertPopUpStackView.addArrangedSubview(alertButton)
         alertButton.addTarget(self, action: #selector(dismissAlert), for: .touchUpInside)

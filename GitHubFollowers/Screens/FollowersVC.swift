@@ -235,6 +235,7 @@ class FollowersVC: UICollectionViewController {
         var userInfo = [String: String]()
         var message = ""
         var alertTitle = ""
+        var alertButtonColor = UIColor()
 
         userInfo.updateValue(String(self.searchedUser.id!), forKey: "id")
         userInfo.updateValue(self.searchedUser.login!, forKey: "login")
@@ -247,11 +248,13 @@ class FollowersVC: UICollectionViewController {
 
         if userAlreadyAddedToFavorites(favorites: favorites!, userInfo: userInfo) {
             alertTitle = "Warning!!"
+            alertButtonColor = .systemRed
             message = "\(username) has already been added to favorites"
         } else {
              favorites!.append(userInfo)
              defaults.set(favorites, forKey: favoritesKey)
              alertTitle = "Success!"
+             alertButtonColor = .systemGreen
              message = "\(username) has been added to you favorites"
         }
 
@@ -259,6 +262,7 @@ class FollowersVC: UICollectionViewController {
         alertVC.modalTransitionStyle = .crossDissolve
         alertVC.alertTitle = alertTitle
         alertVC.alertMessage = message
+        alertVC.alertButtonColor = alertButtonColor
         alertVC.view.layoutIfNeeded()
         present(alertVC, animated: true, completion: nil)
     }
