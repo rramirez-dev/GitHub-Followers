@@ -231,16 +231,26 @@ class FollowersVC: UICollectionViewController {
         let alertVC = AlertVC()
         let defaults = UserDefaults.standard
         let favoritesKey = "favorites"
+        let username = self.searchedUser.name ?? "<Name is Unavailable>"
+        let userLogin = self.searchedUser.login ?? ""
+        let avatarUrl = self.searchedUser.avatar_url ?? ""
+        var userId = ""
         var favorites: [[String: String]]? = defaults.object(forKey: favoritesKey) as? [[String: String]]
         var userInfo = [String: String]()
         var message = ""
         var alertTitle = ""
         var alertButtonColor = UIColor()
 
-        userInfo.updateValue(String(self.searchedUser.id!), forKey: "id")
-        userInfo.updateValue(self.searchedUser.login!, forKey: "login")
-        userInfo.updateValue(self.searchedUser.name!, forKey: "name")
-        userInfo.updateValue(self.searchedUser.avatar_url!, forKey: "avatar_url")
+        if let id = self.searchedUser.id {
+          userId = String(id)
+        } else {
+          userId = ""
+        }
+
+        userInfo.updateValue(userId, forKey: "id")
+        userInfo.updateValue(userLogin, forKey: "login")
+        userInfo.updateValue(username, forKey: "name")
+        userInfo.updateValue(avatarUrl, forKey: "avatar_url")
 
         if favorites == nil {
             favorites = [[String: String]]()
