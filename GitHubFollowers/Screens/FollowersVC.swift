@@ -39,7 +39,7 @@ class FollowersVC: UICollectionViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         configureView()
-        navigationItem.hidesSearchBarWhenScrolling = false
+        navigationItem.hidesSearchBarWhenScrolling = true
     }
 
     override func viewDidAppear(_ animated: Bool) {
