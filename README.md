@@ -1,6 +1,6 @@
 
 # GitHub Followers
-My version of GitHubFollowers was inspired by Sean Allens take home project course. It allows you to find the followers of a specific Github user. You can view user profiles and save your favorite user searches.
+My version of the GitHubFollowers App was inspired by Sean Allens take home project course. It allows you to find the followers of a specific Github user. You can view user profiles and save your favorite user searches.
 # Overview
 * **Search** Github users for a list of all their followers
 
