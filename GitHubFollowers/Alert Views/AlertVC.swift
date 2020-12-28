@@ -18,7 +18,7 @@ class AlertVC: UIViewController {
 
     var alertMessage = String()
     var alertTitle = String()
-  var alertButtonColor = UIColor.green
+  var alertButtonColor = UIColor.systemRed
 
     override func viewDidLoad() {
         super.viewDidLoad()
