@@ -124,6 +124,7 @@ class SearchVC: UIViewController {
             alertVC.modalPresentationStyle = .overFullScreen
             alertVC.modalTransitionStyle = .crossDissolve
             alertVC.alertTitle = "Warning"
+            alertVC.alertButtonColor = .systemRed
             alertVC.alertMessage = "You must enter a username."
             present(alertVC, animated: true, completion: nil)
         } else {
