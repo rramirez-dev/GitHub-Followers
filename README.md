@@ -4,7 +4,7 @@ My version of the GitHubFollowers App was inspired by Sean Allens take home proj
 # Overview
 * **Search** Github users for a list of all their followers
 
-* **Search** the list of followers for a specific user
+* **Sort** the list of followers for a specific user
 
 * **Save** your favorite username searches 
 
