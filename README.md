@@ -10,7 +10,7 @@ My version of the GitHubFollowers App was inspired by Sean Allens take home proj
 
 * View the **profiles** of specific followers
 
-* **Search** for followers of followers
+* **Search** for followers of your favorite Github users followers.
 
 ![GF HomeScreen](/images/GF_HomeScreen.png "Search")
 ![GF HomeScreen](/images/GF_Followers.png "Followers")
