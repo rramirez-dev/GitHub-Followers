@@ -200,18 +200,15 @@ class FollowersVC: UICollectionViewController {
                 switch error {
                 case .forbidden:
                     DispatchQueue.main.async {
-                        let errorMessageView = MessageView(errorMessage: "403 Forbidden")
-                        self?.collectionView.backgroundView = errorMessageView
+                        self?.collectionView.backgroundView = MessageView(errorMessage: "403 Forbidden")
                     }
                 case .notFound:
                     DispatchQueue.main.async {
-                        let errorMessageView = MessageView(errorMessage: "404 Not Found")
-                        self?.collectionView.backgroundView = errorMessageView
+                        self?.collectionView.backgroundView = MessageView(errorMessage: "404 Not Found")
                     }
                 case .invalidURL:
                     DispatchQueue.main.async {
-                        let errorMessageView = MessageView(errorMessage: "Invalid URL")
-                        self?.collectionView.backgroundView = errorMessageView
+                        self?.collectionView.backgroundView = MessageView(errorMessage: "Invalid URL")
                     }
                 default:
                     DispatchQueue.main.async {

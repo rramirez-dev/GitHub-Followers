@@ -68,10 +68,10 @@ struct GitHubAPIService {
     func fetchAvatar(for avatarUrl: URL, completion: @escaping(Result<UIImage, APIServiceError>) -> Void) {
 
         if let cachedAvatarImage = imageCache.object(forKey: NSString(string: avatarUrl.absoluteString)) {
-            //use cached avatar image
+            // use cached avatar image
             completion(.success(cachedAvatarImage))
         } else {
-            //create a new avatar image
+            // create a new avatar image
             URLSession.shared.dataTask(with: avatarUrl) { data, _, error in
 
                 if error != nil {
