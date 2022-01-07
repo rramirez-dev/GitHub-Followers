@@ -12,7 +12,7 @@ class FollowerDetailsVC: UIViewController {
 
     private var doneButton: UIButton!
 
-    //Child View Controllers
+    // Child View Controllers
     private let repoStatsViewController = RepoStatsVC()
     private let followerStatsViewController = FollowerStatsVC()
     private var followerInfoViewController = FollowerInfoVC()
@@ -32,31 +32,8 @@ class FollowerDetailsVC: UIViewController {
     // MARK: Configure view
     private func configureView() {
         view.backgroundColor = .systemBackground
-    }
-
-    // MARK: Configure doneButton
-    private func configureDoneButton() {
-        doneButton = UIButton()
-        doneButton.backgroundColor = .systemGray6
-        doneButton.setTitleColor(.systemGreen, for: .normal)
-        doneButton.titleLabel?.font = UIFont.preferredFont(forTextStyle: .headline)
-        doneButton.setTitle("Done", for: .normal)
-        doneButton.contentHorizontalAlignment = .right
-        doneButton.contentEdgeInsets = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 10)
-        doneButton.addTarget(self, action: #selector(done), for: .touchUpInside)
-        view.addSubview(doneButton)
-        setDoneButtonContraints()
-    }
-
-    private func setDoneButtonContraints() {
-        doneButton.translatesAutoresizingMaskIntoConstraints = false
-
-        NSLayoutConstraint.activate([
-            doneButton.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 0),
-            doneButton.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 0),
-            doneButton.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: 0),
-            doneButton.heightAnchor.constraint(equalToConstant: 44)
-        ])
+      navigationController?.navigationBar.backgroundColor = .systemGray6
+        navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(done))
     }
 
     // MARK: Configure Followers Info Child View
@@ -162,9 +139,9 @@ class FollowerDetailsVC: UIViewController {
         followerDetailsVStack.translatesAutoresizingMaskIntoConstraints = false
 
         NSLayoutConstraint.activate([
-            followerDetailsVStack.topAnchor.constraint(equalTo: doneButton.bottomAnchor, constant: 10),
-            followerDetailsVStack.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 10),
-            followerDetailsVStack.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -10)
+          followerDetailsVStack.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 10),
+          followerDetailsVStack.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 10),
+          followerDetailsVStack.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -10)
         ])
     }
 
@@ -195,7 +172,6 @@ class FollowerDetailsVC: UIViewController {
                     self?.repoStatsViewController.user = user
                     self!.followerStatsViewController.user = user
                     self!.configureView()
-                    self!.configureDoneButton()
                     self!.configureFollowerDetailsVStack()
                     self!.configureFollowerStatsVStack()
                     self!.addChildFollowerInfoViewController()

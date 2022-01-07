@@ -52,8 +52,7 @@ class FollowerInfoVC: UIViewController {
 
         NSLayoutConstraint.activate([
             followerInfoVStack.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 0),
-            followerInfoVStack.leadingAnchor.constraint(equalTo: avatarImageView.trailingAnchor, constant: 10),
-            followerInfoVStack.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -10)
+            followerInfoVStack.leadingAnchor.constraint(equalTo: avatarImageView.trailingAnchor, constant: 10)
         ])
     }
 
@@ -124,7 +123,7 @@ class FollowerInfoVC: UIViewController {
 
         NSLayoutConstraint.activate([
             bioTextView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 10),
-            bioTextView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -10),
+            bioTextView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: 10),
             bioTextView.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: 0),
             bioTextView.heightAnchor.constraint(equalToConstant: 100)
         ])

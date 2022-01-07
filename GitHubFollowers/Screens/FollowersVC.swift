@@ -286,8 +286,10 @@ extension FollowersVC {
     override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let follower = dataSource.itemIdentifier(for: indexPath)
         let followerDetailsViewController = FollowerDetailsVC()
+        let followersDetailsNC = UINavigationController(rootViewController: followerDetailsViewController)
+        followersDetailsNC.navigationBar.tintColor = .systemGreen
         followerDetailsViewController.userLoginId = follower!.login
-        navigationController?.present(followerDetailsViewController, animated: true, completion: nil)
+        navigationController?.present(followersDetailsNC, animated: true, completion: nil)
     }
 
     override func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
