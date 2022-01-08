@@ -12,7 +12,17 @@ import UIKit
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
-        // Override point for customization after application launch.
+
+      /*
+       Implements iOS 12.x Navigation and TabBar styles for iOS 15.x
+       */
+      let appearance = UINavigationBarAppearance()
+      appearance.configureWithDefaultBackground()
+      UINavigationBar.appearance().scrollEdgeAppearance = appearance
+
+      let tabbarAppearance = UITabBarAppearance()
+      tabbarAppearance.configureWithDefaultBackground()
+      UITabBar.appearance().scrollEdgeAppearance = tabbarAppearance
         return true
     }
 
